@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from 'react';
 import { SearchHeader } from '@/components/SearchHeader';
+import { CategorySelector } from '@/components/CategorySelector';
 import { ProductGrid } from '@/components/ProductGrid';
 import { FilterSidebar } from '@/components/FilterSidebar';
 import { SearchSuggestions } from '@/components/SearchSuggestions';
@@ -17,6 +17,7 @@ const Index = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showFavoritesModal, setShowFavoritesModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
@@ -49,6 +50,12 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
+    // Update filters when category changes
+    const updatedFilters = { ...filters, category: selectedCategory };
+    setFilters(updatedFilters);
+  }, [selectedCategory]);
+
+  useEffect(() => {
     // Apply filters and sorting when they change
     let filtered = products.filter(product => {
       return (
@@ -56,7 +63,7 @@ const Index = () => {
         product.price <= filters.maxPrice &&
         product.rating >= filters.minRating &&
         (filters.category === '' || product.category === filters.category) &&
-        (filters.brand === '' || product.brand === filters.brand) &&
+        (filters.brand === '' || product.brand === filters.brand || product.store === filters.brand) &&
         (filters.storeType === 'all' || 
          (filters.storeType === 'local' && product.isLocal) ||
          (filters.storeType === 'international' && !product.isLocal))
@@ -108,6 +115,17 @@ const Index = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    // Trigger search with category filter
+    if (category) {
+      const categoryQuery = searchQuery || category.toLowerCase();
+      handleSearch(categoryQuery);
+    } else {
+      handleSearch(searchQuery);
     }
   };
 
@@ -209,6 +227,11 @@ const Index = () => {
             searchQuery={searchQuery}
           />
         )}
+
+        <CategorySelector 
+          selectedCategory={selectedCategory}
+          onCategorySelect={handleCategorySelect}
+        />
 
         <div className="flex flex-col lg:flex-row gap-6 mt-6">
           <div className="lg:w-1/4">

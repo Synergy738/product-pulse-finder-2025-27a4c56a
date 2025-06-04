@@ -23,14 +23,26 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 }) => {
   const categories = [
     'All Categories',
-    'Laptops',
     'Smartphones',
+    'Laptops',
     'Headphones',
     'Monitors',
-    'Keyboards',
-    'Mice',
+    'PC Parts',
     'Tablets',
     'Cameras'
+  ];
+
+  const capeTownStores = [
+    'All Stores',
+    'Takealot',
+    'iStore',
+    'Vodacom',
+    'MTN',
+    'Cell C',
+    'Cash Crusaders',
+    'Samsung',
+    'Evetech',
+    'Incredible Connection'
   ];
 
   const brands = [
@@ -42,7 +54,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     'Dell',
     'Sony',
     'Logitech',
-    'Razer'
+    'Razer',
+    'ASUS',
+    'MSI',
+    'NVIDIA',
+    'AMD'
   ];
 
   const handlePriceChange = (values: number[]) => {
@@ -62,20 +78,20 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   return (
     <div className="space-y-6">
-      <Card className="shadow-lg">
+      <Card className="shadow-lg bg-gray-800 border-gray-700">
         <CardHeader>
-          <CardTitle className="text-lg">Sort & Filter</CardTitle>
-          <p className="text-sm text-gray-600">{productCount} products found</p>
+          <CardTitle className="text-lg text-white">Sort & Filter</CardTitle>
+          <p className="text-sm text-gray-400">{productCount} products found</p>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Sort By */}
           <div>
-            <Label className="text-sm font-medium">Sort by</Label>
+            <Label className="text-sm font-medium text-gray-300">Sort by</Label>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="mt-1">
+              <SelectTrigger className="mt-1 bg-gray-700 border-gray-600 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-gray-700 border-gray-600">
                 <SelectItem value="relevance">Relevance</SelectItem>
                 <SelectItem value="price-low">Price: Low to High</SelectItem>
                 <SelectItem value="price-high">Price: High to Low</SelectItem>
@@ -87,7 +103,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
           {/* Price Range */}
           <div>
-            <Label className="text-sm font-medium">
+            <Label className="text-sm font-medium text-gray-300">
               Price Range: R{filters.minPrice} - R{filters.maxPrice}
             </Label>
             <Slider
@@ -95,14 +111,14 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
               onValueChange={handlePriceChange}
               max={50000}
               min={0}
-              step={100}
+              step={500}
               className="mt-3"
             />
           </div>
 
           {/* Rating */}
           <div>
-            <Label className="text-sm font-medium">
+            <Label className="text-sm font-medium text-gray-300">
               Minimum Rating: {filters.minRating}+ stars
             </Label>
             <Slider
@@ -117,7 +133,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
           {/* Category */}
           <div>
-            <Label className="text-sm font-medium">Category</Label>
+            <Label className="text-sm font-medium text-gray-300">Category</Label>
             <Select 
               value={filters.category || 'All Categories'} 
               onValueChange={(value) => onFilterChange({
@@ -125,10 +141,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 category: value === 'All Categories' ? '' : value
               })}
             >
-              <SelectTrigger className="mt-1">
+              <SelectTrigger className="mt-1 bg-gray-700 border-gray-600 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-gray-700 border-gray-600">
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>
                     {category}
@@ -138,9 +154,32 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
             </Select>
           </div>
 
+          {/* Cape Town Stores */}
+          <div>
+            <Label className="text-sm font-medium text-gray-300">Cape Town Stores</Label>
+            <Select 
+              value={filters.brand || 'All Stores'} 
+              onValueChange={(value) => onFilterChange({
+                ...filters,
+                brand: value === 'All Stores' ? '' : value
+              })}
+            >
+              <SelectTrigger className="mt-1 bg-gray-700 border-gray-600 text-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-gray-700 border-gray-600">
+                {capeTownStores.map(store => (
+                  <SelectItem key={store} value={store}>
+                    {store}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Brand */}
           <div>
-            <Label className="text-sm font-medium">Brand</Label>
+            <Label className="text-sm font-medium text-gray-300">Brand</Label>
             <Select 
               value={filters.brand || 'All Brands'} 
               onValueChange={(value) => onFilterChange({
@@ -148,10 +187,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 brand: value === 'All Brands' ? '' : value
               })}
             >
-              <SelectTrigger className="mt-1">
+              <SelectTrigger className="mt-1 bg-gray-700 border-gray-600 text-white">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-gray-700 border-gray-600">
                 {brands.map(brand => (
                   <SelectItem key={brand} value={brand}>
                     {brand}

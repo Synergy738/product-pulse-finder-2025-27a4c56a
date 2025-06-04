@@ -1,7 +1,7 @@
 
 import { Product } from '@/types/Product';
 
-// Sample product data for Cape Town stores
+// Sample product data for Cape Town tech retailers only
 const sampleProducts: Product[] = [
   {
     id: '1',
@@ -53,52 +53,6 @@ const sampleProducts: Product[] = [
   },
   {
     id: '3',
-    name: 'Alienware M15 R7 Gaming Laptop',
-    brand: 'Dell',
-    price: 1499,
-    rating: 4.8,
-    reviewCount: 892,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
-    category: 'Laptops',
-    description: 'Premium gaming laptop with exceptional build quality',
-    features: [
-      'Intel Core i7 processor',
-      'RTX 3070 graphics card',
-      '32GB RAM, 1TB SSD',
-      '15.6" QHD 240Hz display'
-    ],
-    inStock: true,
-    badges: ['Premium', 'International'],
-    store: 'Amazon',
-    storeUrl: 'https://www.amazon.com',
-    isLocal: false,
-    currency: 'USD'
-  },
-  {
-    id: '4',
-    name: 'MSI Katana GF66 Gaming Laptop',
-    brand: 'MSI',
-    price: 18500,
-    rating: 4.6,
-    reviewCount: 178,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
-    category: 'Laptops',
-    description: 'Used gaming laptop in excellent condition',
-    features: [
-      'Intel Core i5 processor',
-      'RTX 3050 graphics card',
-      '8GB RAM, 256GB SSD',
-      '15.6" Full HD display'
-    ],
-    inStock: true,
-    badges: ['Used', 'Great Deal'],
-    store: 'OLX Cape Town',
-    storeUrl: 'https://www.olx.co.za',
-    isLocal: true,
-    currency: 'ZAR'
-  },
-  {
-    id: '5',
     name: 'iPhone 14 Pro Max',
     brand: 'Apple',
     price: 28999,
@@ -121,29 +75,121 @@ const sampleProducts: Product[] = [
     currency: 'ZAR'
   },
   {
-    id: '6',
-    name: 'Nike Air Force 1 Sneakers',
-    brand: 'Nike',
-    price: 45,
-    originalPrice: 65,
-    rating: 4.4,
-    reviewCount: 2156,
-    image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop',
-    category: 'Footwear',
-    description: 'Classic white sneakers at unbeatable price',
+    id: '4',
+    name: 'Samsung Galaxy S23 Ultra',
+    brand: 'Samsung',
+    price: 24999,
+    rating: 4.8,
+    reviewCount: 892,
+    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
+    category: 'Smartphones',
+    description: 'Premium flagship with S Pen functionality',
     features: [
-      'Genuine leather upper',
-      'Air-Sole unit cushioning',
-      'Rubber outsole',
-      'Multiple sizes available'
+      'S Pen included',
+      '200MP camera system',
+      '6.8" Dynamic AMOLED 2X',
+      '256GB storage'
     ],
     inStock: true,
-    discount: 31,
-    badges: ['Fashion', 'International Deal'],
-    store: 'Shein',
-    storeUrl: 'https://www.shein.com',
-    isLocal: false,
-    currency: 'USD'
+    badges: ['Flagship', 'S Pen'],
+    store: 'Vodacom',
+    storeUrl: 'https://www.vodacom.co.za',
+    isLocal: true,
+    currency: 'ZAR'
+  },
+  {
+    id: '5',
+    name: 'MacBook Air M2',
+    brand: 'Apple',
+    price: 21999,
+    rating: 4.9,
+    reviewCount: 567,
+    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
+    category: 'Laptops',
+    description: 'Ultra-thin laptop with Apple M2 chip',
+    features: [
+      'Apple M2 chip',
+      '13.6" Liquid Retina display',
+      '256GB SSD storage',
+      'All-day battery life'
+    ],
+    inStock: true,
+    badges: ['Premium', 'Ultra-thin'],
+    store: 'iStore',
+    storeUrl: 'https://www.istores.co.za',
+    isLocal: true,
+    currency: 'ZAR'
+  },
+  {
+    id: '6',
+    name: 'Sony WH-1000XM5 Headphones',
+    brand: 'Sony',
+    price: 6999,
+    originalPrice: 7999,
+    rating: 4.8,
+    reviewCount: 342,
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop',
+    category: 'Headphones',
+    description: 'Premium noise-canceling headphones',
+    features: [
+      'Industry-leading noise canceling',
+      '30-hour battery life',
+      'Premium comfort',
+      'Multi-device pairing'
+    ],
+    inStock: true,
+    discount: 13,
+    badges: ['Audio', 'Noise Canceling'],
+    store: 'Takealot',
+    storeUrl: 'https://www.takealot.com',
+    isLocal: true,
+    currency: 'ZAR'
+  },
+  {
+    id: '7',
+    name: 'Dell XPS 13 Plus',
+    brand: 'Dell',
+    price: 18999,
+    rating: 4.6,
+    reviewCount: 289,
+    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
+    category: 'Laptops',
+    description: 'Ultra-premium business laptop',
+    features: [
+      'Intel Core i7 processor',
+      '13.4" InfinityEdge display',
+      '16GB RAM, 512GB SSD',
+      'Sleek design'
+    ],
+    inStock: true,
+    badges: ['Business', 'Premium'],
+    store: 'MTN',
+    storeUrl: 'https://www.mtn.co.za',
+    isLocal: true,
+    currency: 'ZAR'
+  },
+  {
+    id: '8',
+    name: 'NVIDIA RTX 4060 Graphics Card',
+    brand: 'NVIDIA',
+    price: 7499,
+    rating: 4.7,
+    reviewCount: 156,
+    image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=500&fit=crop',
+    category: 'PC Parts',
+    description: 'High-performance graphics card for gaming',
+    features: [
+      'DLSS 3 technology',
+      '8GB GDDR6 memory',
+      'Ray tracing support',
+      'Efficient cooling'
+    ],
+    inStock: true,
+    badges: ['Gaming', 'Ray Tracing'],
+    store: 'Evetech',
+    storeUrl: 'https://www.evetech.co.za',
+    isLocal: true,
+    currency: 'ZAR'
   }
 ];
 
@@ -168,7 +214,7 @@ export const searchProducts = (query: string, filters?: any): Product[] => {
     const budgetMatch = query.match(/under?\s*r?(\d+)/i);
     if (budgetMatch) {
       const budget = parseInt(budgetMatch[1]);
-      if (product.currency === 'ZAR' && product.price > budget) return false;
+      if (product.price > budget) return false;
     }
 
     // Check for rating constraints
@@ -178,30 +224,24 @@ export const searchProducts = (query: string, filters?: any): Product[] => {
       if (product.rating < minRating) return false;
     }
 
-    // Check for store type preference
-    if (query.includes('local') && !product.isLocal) return false;
-    if (query.includes('international') && product.isLocal) return false;
-
     // General text search
     return searchableText.includes(lowerQuery) ||
            lowerQuery.split(' ').some(term => searchableText.includes(term));
   });
 
-  // Apply store type filter if provided
-  if (filters?.storeType) {
+  // Apply additional filters if provided
+  if (filters?.category && filters.category !== '') {
+    filteredProducts = filteredProducts.filter(p => p.category === filters.category);
+  }
+
+  if (filters?.storeType && filters.storeType !== 'all') {
     if (filters.storeType === 'local') {
       filteredProducts = filteredProducts.filter(p => p.isLocal);
-    } else if (filters.storeType === 'international') {
-      filteredProducts = filteredProducts.filter(p => !p.isLocal);
     }
   }
 
-  // Sort by relevance (rating + review count for similar prices)
+  // Sort by relevance (rating + review count)
   return filteredProducts.sort((a, b) => {
-    // Prioritize local stores for similar products
-    if (a.name === b.name && a.isLocal && !b.isLocal) return -1;
-    if (a.name === b.name && !a.isLocal && b.isLocal) return 1;
-    
     const aScore = a.rating * Math.log(a.reviewCount + 1);
     const bScore = b.rating * Math.log(b.reviewCount + 1);
     return bScore - aScore;
@@ -209,6 +249,31 @@ export const searchProducts = (query: string, filters?: any): Product[] => {
 };
 
 export const getProductRecommendation = (product: Product): string => {
-  const price = product.currency === 'ZAR' ? `R${product.price.toLocaleString()}` : `$${product.price.toLocaleString()}`;
+  const price = `R${product.price.toLocaleString()}`;
   return `The **${product.name}** is available at **${product.store}** for **${price}**, rated **${product.rating} stars**. Click 'View' to visit the store.`;
+};
+
+export const getSearchSuggestions = (query: string): string[] => {
+  const suggestions = [
+    "budget smartphone under R5000",
+    "gaming laptop with RTX graphics",
+    "iPhone latest models Cape Town",
+    "Samsung Galaxy series phones",
+    "MacBook Air for students",
+    "gaming headset with microphone",
+    "wireless earbuds under R2000",
+    "4K monitor for home office",
+    "mechanical keyboard for gaming",
+    "graphics card RTX 4060",
+    "SSD storage 1TB",
+    "laptop under R15000"
+  ];
+
+  if (!query.trim()) return suggestions.slice(0, 6);
+  
+  return suggestions
+    .filter(suggestion => 
+      suggestion.toLowerCase().includes(query.toLowerCase())
+    )
+    .slice(0, 6);
 };
