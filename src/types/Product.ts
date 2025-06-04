@@ -14,6 +14,10 @@ export interface Product {
   inStock: boolean;
   discount?: number;
   badges?: string[];
+  store: string;
+  storeUrl: string;
+  isLocal: boolean;
+  currency: string;
 }
 
 export interface SearchFilters {
@@ -22,4 +26,12 @@ export interface SearchFilters {
   minRating: number;
   category: string;
   brand: string;
+  storeType: 'all' | 'local' | 'international';
+}
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  favorites: string[];
 }

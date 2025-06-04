@@ -36,28 +36,29 @@ export const SearchHeader: React.FC<SearchHeaderProps> = ({
 
   return (
     <div className="text-center mb-8">
-      <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-        Smart Product Finder
+      <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent mb-4 animate-fade-in">
+        Cape Town Product Finder
       </h1>
-      <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-        Discover the perfect products with AI-powered search. Find exactly what you need with intelligent recommendations.
+      <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
+        Discover the best products from local Cape Town stores and international retailers. 
+        Compare prices, ratings, and find exactly what you need.
       </p>
       
-      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
+      <form onSubmit={handleSubmit} className="max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '400ms' }}>
         <div className="relative">
           <div className="relative flex items-center">
             <Search className="absolute left-4 h-5 w-5 text-gray-400" />
             <Input
               type="text"
-              placeholder="Search for products... (e.g., 'budget laptop under R5000 with 4+ stars')"
+              placeholder="Search for products... (e.g., 'budget smartphone Cape Town' or 'gaming laptop local stores')"
               value={searchQuery}
               onChange={handleInputChange}
               onFocus={() => setShowSuggestions(searchQuery.length > 0)}
-              className="pl-12 pr-24 py-4 text-lg rounded-full border-2 border-gray-200 focus:border-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="pl-12 pr-24 py-4 text-lg rounded-full border-2 border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:border-blue-500 focus:bg-gray-700 transition-all duration-300 shadow-lg hover:shadow-xl"
             />
             <Button 
               type="submit" 
-              className="absolute right-2 rounded-full px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+              className="absolute right-2 rounded-full px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
               disabled={loading}
             >
               {loading ? 'Searching...' : 'Search'}

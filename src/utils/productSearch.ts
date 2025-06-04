@@ -1,142 +1,166 @@
 
 import { Product } from '@/types/Product';
 
-// Sample product data for demonstration
+// Sample product data for Cape Town stores
 const sampleProducts: Product[] = [
   {
     id: '1',
-    name: 'Acer Aspire 5 Slim Laptop',
-    brand: 'Acer',
-    price: 4999,
-    originalPrice: 5999,
-    rating: 4.3,
-    reviewCount: 1247,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
-    category: 'Laptops',
-    description: 'Perfect budget laptop for students and daily computing',
+    name: 'Samsung Galaxy A14 5G',
+    brand: 'Samsung',
+    price: 3999,
+    originalPrice: 4499,
+    rating: 4.5,
+    reviewCount: 234,
+    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
+    category: 'Smartphones',
+    description: 'Budget-friendly smartphone with excellent performance',
     features: [
-      'AMD Ryzen 5 processor',
-      '8GB RAM, 256GB SSD',
-      '15.6" Full HD display',
-      'Up to 8 hours battery life'
+      '5000mAh long-lasting battery',
+      '50MP triple camera system',
+      '6.6" Full HD+ display',
+      '128GB storage'
     ],
     inStock: true,
-    discount: 17,
-    badges: ['Best Seller', 'Student Choice']
+    discount: 11,
+    badges: ['Local Store', 'Best Value'],
+    store: 'Cash Crusaders',
+    storeUrl: 'https://www.cashcrusaders.co.za',
+    isLocal: true,
+    currency: 'ZAR'
   },
   {
     id: '2',
-    name: 'Samsung Galaxy A54 5G',
-    brand: 'Samsung',
-    price: 6499,
+    name: 'ASUS ROG Strix G15 Gaming Laptop',
+    brand: 'ASUS',
+    price: 24999,
     rating: 4.7,
-    reviewCount: 2156,
-    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
-    category: 'Smartphones',
-    description: 'Exceptional battery life and performance for intensive daily use',
+    reviewCount: 456,
+    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
+    category: 'Laptops',
+    description: 'High-performance gaming laptop for serious gamers',
     features: [
-      '5000mAh long-lasting battery',
-      '108MP triple camera system',
-      '6.4" Super AMOLED display',
-      '128GB storage, expandable'
+      'AMD Ryzen 7 processor',
+      'RTX 3060 graphics card',
+      '16GB RAM, 512GB SSD',
+      '15.6" 144Hz display'
     ],
     inStock: true,
-    badges: ['5G Ready', 'Editor\'s Choice']
+    badges: ['Gaming', 'High Performance'],
+    store: 'Takealot',
+    storeUrl: 'https://www.takealot.com',
+    isLocal: true,
+    currency: 'ZAR'
   },
   {
     id: '3',
-    name: 'Sony WH-1000XM5 Wireless Headphones',
-    brand: 'Sony',
-    price: 8999,
-    originalPrice: 9999,
+    name: 'Alienware M15 R7 Gaming Laptop',
+    brand: 'Dell',
+    price: 1499,
     rating: 4.8,
     reviewCount: 892,
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop',
-    category: 'Headphones',
-    description: 'Industry-leading noise cancellation with premium sound quality',
+    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
+    category: 'Laptops',
+    description: 'Premium gaming laptop with exceptional build quality',
     features: [
-      'Advanced noise cancellation',
-      '30-hour battery life',
-      'Quick charge: 3 min = 3 hours',
-      'Multipoint Bluetooth connection'
+      'Intel Core i7 processor',
+      'RTX 3070 graphics card',
+      '32GB RAM, 1TB SSD',
+      '15.6" QHD 240Hz display'
     ],
     inStock: true,
-    discount: 10,
-    badges: ['Premium Audio', 'Noise Cancelling']
+    badges: ['Premium', 'International'],
+    store: 'Amazon',
+    storeUrl: 'https://www.amazon.com',
+    isLocal: false,
+    currency: 'USD'
   },
   {
     id: '4',
-    name: 'HP 24" Full HD Monitor',
-    brand: 'HP',
-    price: 2299,
-    rating: 4.4,
-    reviewCount: 567,
-    image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop',
-    category: 'Monitors',
-    description: 'Perfect for home office and productivity work',
+    name: 'MSI Katana GF66 Gaming Laptop',
+    brand: 'MSI',
+    price: 18500,
+    rating: 4.6,
+    reviewCount: 178,
+    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
+    category: 'Laptops',
+    description: 'Used gaming laptop in excellent condition',
     features: [
-      '24" Full HD (1920x1080)',
-      'IPS panel for wide viewing',
-      'HDMI and VGA connectivity',
-      'Adjustable tilt stand'
+      'Intel Core i5 processor',
+      'RTX 3050 graphics card',
+      '8GB RAM, 256GB SSD',
+      '15.6" Full HD display'
     ],
     inStock: true,
-    badges: ['Office Essential']
+    badges: ['Used', 'Great Deal'],
+    store: 'OLX Cape Town',
+    storeUrl: 'https://www.olx.co.za',
+    isLocal: true,
+    currency: 'ZAR'
   },
   {
     id: '5',
-    name: 'Apple iPad (10th Gen)',
+    name: 'iPhone 14 Pro Max',
     brand: 'Apple',
-    price: 8999,
-    rating: 4.6,
+    price: 28999,
+    rating: 4.9,
     reviewCount: 1834,
-    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&h=500&fit=crop',
-    category: 'Tablets',
-    description: 'Versatile tablet perfect for creativity and productivity',
+    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
+    category: 'Smartphones',
+    description: 'Latest iPhone with premium features',
     features: [
-      '10.9" Liquid Retina display',
-      'A14 Bionic chip',
-      'All-day battery life',
-      'USB-C connectivity'
+      'A16 Bionic chip',
+      'Pro camera system',
+      '6.7" Super Retina XDR',
+      '256GB storage'
     ],
     inStock: true,
-    badges: ['Creative Pro', 'Premium Build']
+    badges: ['Premium', 'Latest'],
+    store: 'iStore',
+    storeUrl: 'https://www.istores.co.za',
+    isLocal: true,
+    currency: 'ZAR'
   },
   {
     id: '6',
-    name: 'Logitech MX Master 3S Wireless Mouse',
-    brand: 'Logitech',
-    price: 1899,
-    rating: 4.5,
-    reviewCount: 743,
-    image: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop',
-    category: 'Mice',
-    description: 'Advanced wireless mouse for professionals',
+    name: 'Nike Air Force 1 Sneakers',
+    brand: 'Nike',
+    price: 45,
+    originalPrice: 65,
+    rating: 4.4,
+    reviewCount: 2156,
+    image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop',
+    category: 'Footwear',
+    description: 'Classic white sneakers at unbeatable price',
     features: [
-      'Darkfield tracking technology',
-      '70-day battery life',
-      'Customizable buttons',
-      'Multi-device connectivity'
+      'Genuine leather upper',
+      'Air-Sole unit cushioning',
+      'Rubber outsole',
+      'Multiple sizes available'
     ],
     inStock: true,
-    badges: ['Productivity']
+    discount: 31,
+    badges: ['Fashion', 'International Deal'],
+    store: 'Shein',
+    storeUrl: 'https://www.shein.com',
+    isLocal: false,
+    currency: 'USD'
   }
 ];
 
-export const searchProducts = (query: string): Product[] => {
+export const searchProducts = (query: string, filters?: any): Product[] => {
   if (!query.trim()) {
     return sampleProducts;
   }
 
   const lowerQuery = query.toLowerCase();
   
-  // Enhanced search logic
-  const filteredProducts = sampleProducts.filter(product => {
+  let filteredProducts = sampleProducts.filter(product => {
     const searchableText = [
       product.name,
       product.brand,
       product.category,
       product.description,
+      product.store,
       ...product.features
     ].join(' ').toLowerCase();
 
@@ -144,7 +168,7 @@ export const searchProducts = (query: string): Product[] => {
     const budgetMatch = query.match(/under?\s*r?(\d+)/i);
     if (budgetMatch) {
       const budget = parseInt(budgetMatch[1]);
-      if (product.price > budget) return false;
+      if (product.currency === 'ZAR' && product.price > budget) return false;
     }
 
     // Check for rating constraints
@@ -154,33 +178,37 @@ export const searchProducts = (query: string): Product[] => {
       if (product.rating < minRating) return false;
     }
 
+    // Check for store type preference
+    if (query.includes('local') && !product.isLocal) return false;
+    if (query.includes('international') && product.isLocal) return false;
+
     // General text search
     return searchableText.includes(lowerQuery) ||
            lowerQuery.split(' ').some(term => searchableText.includes(term));
   });
 
+  // Apply store type filter if provided
+  if (filters?.storeType) {
+    if (filters.storeType === 'local') {
+      filteredProducts = filteredProducts.filter(p => p.isLocal);
+    } else if (filters.storeType === 'international') {
+      filteredProducts = filteredProducts.filter(p => !p.isLocal);
+    }
+  }
+
   // Sort by relevance (rating + review count for similar prices)
   return filteredProducts.sort((a, b) => {
-    const priceDiff = Math.abs(a.price - b.price);
-    if (priceDiff < 500) { // Similar pricing
-      const aScore = a.rating * Math.log(a.reviewCount + 1);
-      const bScore = b.rating * Math.log(b.reviewCount + 1);
-      return bScore - aScore;
-    }
-    return 0; // Keep original order for different price ranges
+    // Prioritize local stores for similar products
+    if (a.name === b.name && a.isLocal && !b.isLocal) return -1;
+    if (a.name === b.name && !a.isLocal && b.isLocal) return 1;
+    
+    const aScore = a.rating * Math.log(a.reviewCount + 1);
+    const bScore = b.rating * Math.log(b.reviewCount + 1);
+    return bScore - aScore;
   });
 };
 
 export const getProductRecommendation = (product: Product): string => {
-  const features = product.features.slice(0, 2).join(', ');
-  return `The ${product.name} is available for ${formatPrice(product.price)}, boasts a ${product.rating}-star rating from over ${product.reviewCount.toLocaleString()} reviews, and is ideal for ${features.toLowerCase()}.`;
-};
-
-const formatPrice = (price: number): string => {
-  return new Intl.NumberFormat('en-ZA', {
-    style: 'currency',
-    currency: 'ZAR',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
+  const price = product.currency === 'ZAR' ? `R${product.price.toLocaleString()}` : `$${product.price.toLocaleString()}`;
+  return `The **${product.name}** is available at **${product.store}** for **${price}**, rated **${product.rating} stars**. Click 'View' to visit the store.`;
 };

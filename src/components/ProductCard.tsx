@@ -3,33 +3,41 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Star, ShoppingCart } from 'lucide-react';
+import { Star, Heart, ExternalLink } from 'lucide-react';
 import { Product } from '@/types/Product';
 import { useToast } from '@/hooks/use-toast';
 
 interface ProductCardProps {
   product: Product;
   index: number;
+  isFavorite: boolean;
+  onToggleFavorite: (productId: string) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ 
+  product, 
+  index, 
+  isFavorite, 
+  onToggleFavorite 
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { toast } = useToast();
 
-  const handleAddToCart = () => {
+  const handleToggleFavorite = () => {
+    onToggleFavorite(product.id);
     toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart`,
+      title: isFavorite ? "Removed from favorites" : "Added to favorites",
+      description: `${product.name} ${isFavorite ? 'removed from' : 'added to'} your favorites`,
     });
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-ZA', {
-      style: 'currency',
-      currency: 'ZAR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
+  const handleViewProduct = () => {
+    window.open(product.storeUrl, '_blank');
+  };
+
+  const formatPrice = (price: number, currency: string) => {
+    const symbol = currency === 'ZAR' ? 'R' : '$';
+    return `${symbol}${price.toLocaleString()}`;
   };
 
   const renderStars = (rating: number) => {
@@ -41,7 +49,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
             ? 'text-yellow-400 fill-current'
             : i < rating
             ? 'text-yellow-400 fill-current opacity-50'
-            : 'text-gray-300'
+            : 'text-gray-600'
         }`}
       />
     ));
@@ -49,75 +57,89 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
 
   return (
     <Card 
-      className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in overflow-hidden"
+      className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 animate-fade-in overflow-hidden bg-gray-800 border-gray-700"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="relative overflow-hidden">
-        <div className="aspect-square bg-gray-100 relative">
+        <div className="aspect-square bg-gray-700 relative">
           <img
             src={product.image}
             alt={product.name}
-            className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 ${
+            className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={() => setImageLoaded(true)}
             loading="lazy"
           />
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-              <div className="text-gray-400">Loading...</div>
+            <div className="absolute inset-0 bg-gray-700 animate-pulse flex items-center justify-center">
+              <div className="text-gray-500">Loading...</div>
             </div>
           )}
         </div>
         
+        {/* Heart icon for favorites */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleToggleFavorite}
+          className={`absolute top-3 left-3 ${
+            isFavorite 
+              ? 'text-red-400 bg-red-400/20 hover:bg-red-400/30' 
+              : 'text-gray-400 bg-black/20 hover:bg-black/40'
+          } backdrop-blur-sm transition-all duration-300`}
+        >
+          <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
+        </Button>
+        
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
           {product.discount && (
             <Badge variant="destructive" className="text-xs">
               -{product.discount}% OFF
             </Badge>
           )}
           {product.badges?.map((badge, i) => (
-            <Badge key={i} variant="secondary" className="text-xs">
+            <Badge key={i} variant="secondary" className="text-xs bg-gray-700/80 text-white">
               {badge}
             </Badge>
           ))}
         </div>
 
-        {/* Stock status */}
-        <div className="absolute top-3 right-3">
-          <Badge variant={product.inStock ? "default" : "secondary"} className="text-xs">
-            {product.inStock ? "In Stock" : "Out of Stock"}
+        {/* Store badge */}
+        <div className="absolute bottom-3 left-3">
+          <Badge variant={product.isLocal ? "default" : "secondary"} className="text-xs">
+            {product.store}
           </Badge>
         </div>
       </div>
 
-      <CardContent className="p-4">
+      <CardContent className="p-4 bg-gray-800 text-white">
         <div className="space-y-3">
           {/* Brand */}
-          <p className="text-sm text-gray-500 font-medium">{product.brand}</p>
+          <p className="text-sm text-gray-400 font-medium">{product.brand}</p>
           
           {/* Product name */}
-          <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+          <h3 className="font-bold text-lg text-white line-clamp-2 group-hover:text-blue-400 transition-colors">
             {product.name}
           </h3>
           
           {/* Rating */}
           <div className="flex items-center gap-2">
             <div className="flex">{renderStars(product.rating)}</div>
-            <span className="text-sm text-gray-600">
-              {product.rating} ({product.reviewCount.toLocaleString()} reviews)
+            <span className="text-sm text-gray-400">
+              {product.rating} ({product.reviewCount.toLocaleString()})
             </span>
           </div>
           
           {/* Price */}
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-gray-900">
-              {formatPrice(product.price)}
+            <span className="text-2xl font-bold text-white">
+              {formatPrice(product.price, product.currency)}
             </span>
             {product.originalPrice && (
               <span className="text-lg text-gray-500 line-through">
-                {formatPrice(product.originalPrice)}
+                {formatPrice(product.originalPrice, product.currency)}
               </span>
             )}
           </div>
@@ -125,20 +147,20 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
           {/* Features */}
           <div className="space-y-1">
             {product.features.slice(0, 2).map((feature, i) => (
-              <p key={i} className="text-sm text-gray-600">
+              <p key={i} className="text-sm text-gray-400">
                 • {feature}
               </p>
             ))}
           </div>
           
-          {/* Add to cart button */}
+          {/* Large View button */}
           <Button 
-            onClick={handleAddToCart}
+            onClick={handleViewProduct}
             disabled={!product.inStock}
-            className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+            className="w-full mt-4 py-3 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
           >
-            <ShoppingCart className="h-4 w-4 mr-2" />
-            {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+            <ExternalLink className="h-5 w-5 mr-2" />
+            {product.inStock ? 'View' : 'Out of Stock'}
           </Button>
         </div>
       </CardContent>
