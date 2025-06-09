@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Mail, Lock, User } from 'lucide-react';
+import { Mail, Lock, User, Zap } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface AuthModalProps {
@@ -40,8 +40,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
       onClose();
       
       toast({
-        title: isLogin ? "Welcome back!" : "Account created!",
-        description: "You've successfully logged in.",
+        title: "Welcome to TechPulse!",
+        description: isLogin ? "Successfully signed in." : "Account created successfully.",
       });
       
       setLoading(false);
@@ -52,7 +52,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
     const user = {
       id: 'google_' + Math.random().toString(36).substr(2, 9),
       email: 'user@gmail.com',
-      name: 'Google User',
+      name: 'Tech Enthusiast',
       favorites: []
     };
     
@@ -61,20 +61,28 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
     onClose();
     
     toast({
-      title: "Welcome!",
-      description: "You've successfully logged in with Google.",
+      title: "Welcome to TechPulse!",
+      description: "Successfully signed in with Google.",
     });
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <Card className="w-full max-w-md bg-gray-900 border-gray-700 text-white animate-scale-in">
-        <CardHeader className="text-center">
+    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <Card className="w-full max-w-md bg-gray-900/95 border-gray-700/50 text-white animate-scale-in backdrop-blur-lg">
+        <CardHeader className="text-center pb-6">
+          <div className="flex justify-center mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <Zap className="h-7 w-7 text-white" />
+            </div>
+          </div>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            {isLogin ? 'Welcome Back' : 'Create Account'}
+            {isLogin ? 'Welcome Back' : 'Join TechPulse'}
           </CardTitle>
+          <p className="text-gray-400 mt-2">
+            {isLogin ? 'Sign in to save your favorites' : 'Create an account to get started'}
+          </p>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <div className="relative">
@@ -84,7 +92,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
                   placeholder="Full Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="pl-10 bg-gray-800 border-gray-600 text-white"
+                  className="pl-10 bg-gray-800/80 border-gray-600/50 text-white placeholder:text-gray-500 focus:border-blue-400 transition-colors"
                   required
                 />
               </div>
@@ -94,10 +102,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
               <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 type="email"
-                placeholder="Email"
+                placeholder="Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 bg-gray-800 border-gray-600 text-white"
+                className="pl-10 bg-gray-800/80 border-gray-600/50 text-white placeholder:text-gray-500 focus:border-blue-400 transition-colors"
                 required
               />
             </div>
@@ -109,14 +117,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 bg-gray-800 border-gray-600 text-white"
+                className="pl-10 bg-gray-800/80 border-gray-600/50 text-white placeholder:text-gray-500 focus:border-blue-400 transition-colors"
                 required
               />
             </div>
             
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
               disabled={loading}
             >
               {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
@@ -125,19 +133,19 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
           
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-gray-600" />
+              <span className="w-full border-t border-gray-600/50" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-gray-900 px-2 text-gray-400">Or continue with</span>
+              <span className="bg-gray-900 px-3 text-gray-400">Or continue with</span>
             </div>
           </div>
           
           <Button 
             onClick={handleGoogleAuth}
             variant="outline" 
-            className="w-full border-gray-600 text-white hover:bg-gray-800"
+            className="w-full border-gray-600/50 text-white hover:bg-gray-800/80 py-3 rounded-lg transition-all duration-300"
           >
-            <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
               <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -146,23 +154,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuth })
             Continue with Google
           </Button>
           
-          <div className="text-center">
+          <div className="flex justify-between items-center text-sm">
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+              className="text-blue-400 hover:text-blue-300 transition-colors underline-offset-4 hover:underline"
             >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+              {isLogin ? "Need an account?" : "Already have an account?"}
             </button>
+            
+            <Button
+              variant="ghost"
+              onClick={onClose}
+              className="text-gray-400 hover:text-white px-0"
+            >
+              Skip for now
+            </Button>
           </div>
-          
-          <Button
-            variant="ghost"
-            onClick={onClose}
-            className="w-full text-gray-400 hover:text-white"
-          >
-            Continue without account
-          </Button>
         </CardContent>
       </Card>
     </div>

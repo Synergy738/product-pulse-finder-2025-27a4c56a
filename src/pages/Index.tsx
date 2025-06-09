@@ -6,6 +6,7 @@ import { FilterSidebar } from '@/components/FilterSidebar';
 import { SearchSuggestions } from '@/components/SearchSuggestions';
 import { AuthModal } from '@/components/AuthModal';
 import { FavoritesModal } from '@/components/FavoritesModal';
+import { TechPulseHeader } from '@/components/TechPulseHeader';
 import { Button } from '@/components/ui/button';
 import { Heart, User, LogOut } from 'lucide-react';
 import { Product, User as UserType } from '@/types/Product';
@@ -21,6 +22,7 @@ const Index = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
+  const [showProductsSection, setShowProductsSection] = useState(false);
   const [filters, setFilters] = useState({
     minPrice: 0,
     maxPrice: 50000,
@@ -38,9 +40,6 @@ const Index = () => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
-    } else {
-      // Show auth modal for new users
-      setShowAuthModal(true);
     }
 
     // Load sample products
@@ -95,6 +94,7 @@ const Index = () => {
     setLoading(true);
     setSearchQuery(query);
     setShowSuggestions(false);
+    setShowProductsSection(true);
     
     try {
       const results = searchProducts(query, filters);
@@ -120,6 +120,7 @@ const Index = () => {
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
+    setShowProductsSection(true);
     // Trigger search with category filter
     if (category) {
       const categoryQuery = searchQuery || category.toLowerCase();
@@ -168,49 +169,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
       <div className="container mx-auto px-4 py-6">
-        {/* Top Navigation */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => user ? setShowFavoritesModal(true) : setShowAuthModal(true)}
-              className="text-white hover:text-red-400 transition-colors"
-            >
-              <Heart className={`h-6 w-6 ${user?.favorites.length ? 'fill-current text-red-400' : ''}`} />
-            </Button>
-            {user && (
-              <span className="text-sm text-gray-400">
-                {user.favorites.length} favorites
-              </span>
-            )}
-          </div>
-          
-          <div className="flex items-center gap-4">
-            {user ? (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-300">Welcome, {user.name}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleLogout}
-                  className="text-white hover:text-red-400"
-                >
-                  <LogOut className="h-5 w-5" />
-                </Button>
-              </div>
-            ) : (
-              <Button
-                variant="ghost"
-                onClick={() => setShowAuthModal(true)}
-                className="text-white hover:text-blue-400"
-              >
-                <User className="h-5 w-5 mr-2" />
-                Sign In
-              </Button>
-            )}
-          </div>
-        </div>
+        <TechPulseHeader 
+          user={user}
+          onShowFavorites={() => user ? setShowFavoritesModal(true) : setShowAuthModal(true)}
+          onShowAuth={() => setShowAuthModal(true)}
+          onLogout={handleLogout}
+          favoriteCount={user?.favorites.length || 0}
+        />
 
         <SearchHeader 
           onSearch={handleSearch}
@@ -233,27 +198,29 @@ const Index = () => {
           onCategorySelect={handleCategorySelect}
         />
 
-        <div className="flex flex-col lg:flex-row gap-6 mt-6">
-          <div className="lg:w-1/4">
-            <FilterSidebar 
-              filters={filters}
-              onFilterChange={handleFilterChange}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              productCount={filteredProducts.length}
-            />
+        {showProductsSection && (
+          <div className="flex flex-col lg:flex-row gap-6 mt-6 animate-fade-in">
+            <div className="lg:w-1/4">
+              <FilterSidebar 
+                filters={filters}
+                onFilterChange={handleFilterChange}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                productCount={filteredProducts.length}
+              />
+            </div>
+            
+            <div className="lg:w-3/4">
+              <ProductGrid 
+                products={filteredProducts}
+                loading={loading}
+                searchQuery={searchQuery}
+                user={user}
+                onToggleFavorite={handleToggleFavorite}
+              />
+            </div>
           </div>
-          
-          <div className="lg:w-3/4">
-            <ProductGrid 
-              products={filteredProducts}
-              loading={loading}
-              searchQuery={searchQuery}
-              user={user}
-              onToggleFavorite={handleToggleFavorite}
-            />
-          </div>
-        </div>
+        )}
       </div>
 
       <AuthModal
