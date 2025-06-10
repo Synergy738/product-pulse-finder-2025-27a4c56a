@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { SearchHeader } from '@/components/SearchHeader';
 import { CategorySelector } from '@/components/CategorySelector';
@@ -10,8 +9,10 @@ import { searchProducts } from '@/utils/productSearch';
 import { useAuth } from '@/hooks/useAuth';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useToast } from '@/hooks/use-toast';
+import { useLocation } from 'react-router-dom';
 
 const HomePage = () => {
+  const location = useLocation();
   const { user, signInWithGoogle } = useAuth();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,6 +32,25 @@ const HomePage = () => {
   const [sortBy, setSortBy] = useState('relevance');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const { toast } = useToast();
+
+  // Reset filters when navigating to home page
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setFilters({
+        minPrice: 0,
+        maxPrice: 50000,
+        minRating: 0,
+        category: '',
+        brand: '',
+        storeType: 'all'
+      });
+      setSelectedCategory('');
+      setSearchQuery('');
+      setShowProductsSection(false);
+      setProducts([]);
+      setFilteredProducts([]);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     // Update filters when category changes
