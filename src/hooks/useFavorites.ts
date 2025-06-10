@@ -28,7 +28,7 @@ export const useFavorites = () => {
       } else {
         // Map the database response to match our TypeScript interface
         const mappedFavorites = (data || []).map(item => ({
-          id: item.id,
+          id: item.favorite_id, // Use favorite_id as the id
           user_id: item.user_id,
           product_id: item.product_id,
           product_name: item.product_name,
@@ -57,9 +57,13 @@ export const useFavorites = () => {
     if (!user) return false;
 
     try {
+      // Generate a unique favorite_id
+      const favoriteId = `fav_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      
       const { error } = await supabase
         .from('favorites')
         .insert({
+          favorite_id: favoriteId,
           user_id: user.id,
           product_id: product.id,
           product_name: product.name,
