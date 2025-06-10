@@ -9,7 +9,134 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      favorites: {
+        Row: {
+          created_at: string
+          favorite_id: string
+          product_brand: string | null
+          product_currency: string | null
+          product_id: string | null
+          product_image: string | null
+          product_name: string | null
+          product_price: number | null
+          product_store: string | null
+          product_store_url: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          favorite_id: string
+          product_brand?: string | null
+          product_currency?: string | null
+          product_id?: string | null
+          product_image?: string | null
+          product_name?: string | null
+          product_price?: number | null
+          product_store?: string | null
+          product_store_url?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          favorite_id?: string
+          product_brand?: string | null
+          product_currency?: string | null
+          product_id?: string | null
+          product_image?: string | null
+          product_name?: string | null
+          product_price?: number | null
+          product_store?: string | null
+          product_store_url?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "Products"
+            referencedColumns: ["prduct_id"]
+          },
+        ]
+      }
+      Products: {
+        Row: {
+          category: string
+          created_at: string
+          image_url: string
+          name: string
+          prduct_id: string
+          price: number
+          product_url: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          image_url: string
+          name: string
+          prduct_id: string
+          price: number
+          product_url: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          image_url?: string
+          name?: string
+          prduct_id?: string
+          price?: number
+          product_url?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          name: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string | null
+          id: string
+          name?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          name?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          created_at: string
+          email: string
+          google_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          google_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          google_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
