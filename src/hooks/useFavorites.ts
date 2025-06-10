@@ -26,7 +26,21 @@ export const useFavorites = () => {
       if (error) {
         console.error('Error fetching favorites:', error);
       } else {
-        setFavorites(data || []);
+        // Map the database response to match our TypeScript interface
+        const mappedFavorites = (data || []).map(item => ({
+          id: item.id,
+          user_id: item.user_id,
+          product_id: item.product_id,
+          product_name: item.product_name,
+          product_brand: item.product_brand,
+          product_price: item.product_price,
+          product_currency: item.product_currency,
+          product_image: item.product_image,
+          product_store: item.product_store,
+          product_store_url: item.product_store_url,
+          created_at: item.created_at
+        }));
+        setFavorites(mappedFavorites);
       }
     } catch (error) {
       console.error('Favorites fetch error:', error);
