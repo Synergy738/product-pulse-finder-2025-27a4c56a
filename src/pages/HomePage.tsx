@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { SearchHeader } from '@/components/SearchHeader';
 import { CategorySelector } from '@/components/CategorySelector';
@@ -194,7 +195,7 @@ const HomePage = () => {
               products={filteredProducts}
               loading={loading}
               searchQuery={searchQuery}
-              user={user}
+              user={user ? { id: user.id, name: user.email || '', favorites: [] } : null}
               onToggleFavorite={handleToggleFavorite}
             />
           </div>
