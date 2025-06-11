@@ -16,7 +16,9 @@ const mockProducts: Product[] = [
     store: 'iStore',
     storeUrl: 'https://www.istore.co.za',
     isLocal: true,
-    description: 'Latest iPhone with Pro camera system'
+    description: 'Latest iPhone with Pro camera system',
+    features: ['A17 Pro chip', '48MP camera system', 'Titanium design', '5G connectivity'],
+    inStock: true
   },
   {
     id: '2',
@@ -31,7 +33,9 @@ const mockProducts: Product[] = [
     store: 'Incredible Connection',
     storeUrl: 'https://www.incredible.co.za',
     isLocal: true,
-    description: 'Premium Android flagship with S Pen'
+    description: 'Premium Android flagship with S Pen',
+    features: ['S Pen included', '200MP camera', '6.8" Dynamic AMOLED', 'Galaxy AI features'],
+    inStock: true
   },
   {
     id: '3',
@@ -46,7 +50,9 @@ const mockProducts: Product[] = [
     store: 'iStore',
     storeUrl: 'https://www.istore.co.za',
     isLocal: true,
-    description: 'Professional laptop with M3 chip'
+    description: 'Professional laptop with M3 chip',
+    features: ['M3 Pro chip', '14.2" Liquid Retina XDR', '18-hour battery', 'ProRes video'],
+    inStock: true
   },
   {
     id: '4',
@@ -61,7 +67,9 @@ const mockProducts: Product[] = [
     store: 'Evetech',
     storeUrl: 'https://www.evetech.co.za',
     isLocal: true,
-    description: 'High-performance ultrabook'
+    description: 'High-performance ultrabook',
+    features: ['13th Gen Intel Core', '15.6" 4K OLED', 'RTX 4050 graphics', 'Premium build'],
+    inStock: true
   },
   {
     id: '5',
@@ -76,7 +84,9 @@ const mockProducts: Product[] = [
     store: 'Incredible Connection',
     storeUrl: 'https://www.incredible.co.za',
     isLocal: true,
-    description: 'Premium noise-cancelling headphones'
+    description: 'Premium noise-cancelling headphones',
+    features: ['Industry-leading noise cancellation', '30-hour battery', 'Multipoint connection', 'Quick charge'],
+    inStock: true
   },
   {
     id: '6',
@@ -91,7 +101,9 @@ const mockProducts: Product[] = [
     store: 'Evetech',
     storeUrl: 'https://www.evetech.co.za',
     isLocal: true,
-    description: '4K UHD monitor for professionals'
+    description: '4K UHD monitor for professionals',
+    features: ['4K UHD resolution', 'HDR10 support', 'USB-C connectivity', 'Ergonomic stand'],
+    inStock: true
   },
   {
     id: '7',
@@ -106,7 +118,9 @@ const mockProducts: Product[] = [
     store: 'Evetech',
     storeUrl: 'https://www.evetech.co.za',
     isLocal: true,
-    description: 'High-end graphics card for gaming'
+    description: 'High-end graphics card for gaming',
+    features: ['Ada Lovelace architecture', 'DLSS 3 support', '16GB GDDR6X', 'Ray tracing'],
+    inStock: true
   },
   {
     id: '8',
@@ -121,7 +135,9 @@ const mockProducts: Product[] = [
     store: 'iStore',
     storeUrl: 'https://www.istore.co.za',
     isLocal: true,
-    description: 'Professional tablet with M2 chip'
+    description: 'Professional tablet with M2 chip',
+    features: ['M2 chip performance', '12.9" Liquid Retina XDR', 'Apple Pencil support', 'ProRes video'],
+    inStock: true
   }
 ];
 
