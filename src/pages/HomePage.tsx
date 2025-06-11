@@ -1,16 +1,17 @@
 
 import React, { useState, useEffect } from 'react';
-import { SearchHeader } from '@/components/SearchHeader';
 import { CategorySelector } from '@/components/CategorySelector';
 import { ProductGrid } from '@/components/ProductGrid';
 import { FilterSidebar } from '@/components/FilterSidebar';
-import { SearchSuggestions } from '@/components/SearchSuggestions';
 import { Product } from '@/types/Product';
 import { searchProducts } from '@/utils/productSearch';
 import { useAuth } from '@/hooks/useAuth';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'react-router-dom';
+import { Search, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const HomePage = () => {
   const location = useLocation();
@@ -31,7 +32,6 @@ const HomePage = () => {
     storeType: 'all' as 'all' | 'local' | 'international'
   });
   const [sortBy, setSortBy] = useState('relevance');
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const { toast } = useToast();
 
   // Reset filters when navigating to home page
@@ -98,9 +98,6 @@ const HomePage = () => {
   const handleSearch = async (query: string) => {
     setLoading(true);
     setSearchQuery(query);
-    setShowSuggestions(false);
-    
-    // If query is empty, still show products section but with all products
     setShowProductsSection(true);
     
     try {
@@ -128,7 +125,6 @@ const HomePage = () => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setShowProductsSection(true);
-    // Perform search with the selected category
     handleSearch(category.toLowerCase());
   };
 
@@ -175,37 +171,61 @@ const HomePage = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Hero/Search Section */}
-      <section className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative container mx-auto px-4 py-12">
-          <SearchHeader 
-            onSearch={handleSearch}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            showSuggestions={showSuggestions}
-            setShowSuggestions={setShowSuggestions}
-            loading={loading}
-          />
-          
-          {showSuggestions && (
-            <SearchSuggestions 
-              onSuggestionClick={handleSearch}
-              searchQuery={searchQuery}
-            />
-          )}
-        </div>
-      </section>
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSearch(searchQuery.trim());
+  };
 
-      {/* Category Filter Section */}
-      <section className="bg-gradient-to-r from-slate-800 to-slate-700 border-b border-slate-600">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-white mb-2">Discover Technology</h2>
-            <p className="text-slate-300">Choose a category to explore premium tech products</p>
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    handleSearch('');
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Discover Technology Section */}
+      <section className="bg-gradient-to-br from-gray-900 to-black">
+        <div className="container mx-auto px-4 py-12">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+              Discover Technology
+            </h2>
+            <p className="text-gray-400 text-lg mb-8">Choose a category to explore premium tech products</p>
+            
+            {/* Search Box */}
+            <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto mb-8">
+              <div className="relative">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-4 h-5 w-5 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder="Search for products... (e.g., 'budget smartphone' or 'gaming laptop')"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-12 pr-32 py-3 text-base rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:border-white/40 focus:bg-white/20 transition-all duration-300"
+                  />
+                  {searchQuery && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={handleClearSearch}
+                      className="absolute right-24 p-2 text-white/70 hover:text-white"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  )}
+                  <Button 
+                    type="submit" 
+                    className="absolute right-2 rounded-full px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 text-white font-semibold"
+                    disabled={loading}
+                  >
+                    {loading ? 'Searching...' : 'Search'}
+                  </Button>
+                </div>
+              </div>
+            </form>
           </div>
+          
           <CategorySelector 
             selectedCategory={selectedCategory}
             onCategorySelect={handleCategorySelect}
@@ -215,11 +235,11 @@ const HomePage = () => {
 
       {/* Products Section */}
       {showProductsSection && (
-        <section className="bg-gradient-to-br from-slate-900 to-purple-900 min-h-screen">
+        <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 min-h-screen">
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col lg:flex-row gap-6 animate-fade-in">
               <div className="lg:w-1/4">
-                <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg border border-slate-600 shadow-xl">
+                <div className="bg-gradient-to-br from-slate-800 to-blue-800 rounded-lg border border-slate-600 shadow-xl">
                   <FilterSidebar 
                     filters={filters}
                     onFilterChange={handleFilterChange}
