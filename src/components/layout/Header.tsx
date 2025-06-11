@@ -30,21 +30,19 @@ export const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-lg border-b border-gray-800/50">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - Simplified like MTN */}
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="w-10 h-10 bg-gradient-to-br from-red-500 via-orange-500 to-yellow-500 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
                 <Zap className="h-6 w-6 text-white" />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 via-orange-500/20 to-yellow-500/20 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300"></div>
             </div>
             <div>
               <h1 className="text-xl font-bold bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
                 TechPulse
               </h1>
-              <p className="text-xs text-gray-400 -mt-1">Cape Town's Hottest Tech Drops</p>
             </div>
           </Link>
 
@@ -54,8 +52,8 @@ export const Header = () => {
               to="/" 
               className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 ${
                 isActive('/') 
-                  ? 'bg-gradient-to-r from-red-600/20 to-orange-600/20 text-red-400 border border-red-500/30' 
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                  ? 'bg-gradient-to-r from-red-600/20 to-orange-600/20 text-red-600 border border-red-500/30' 
+                  : 'text-gray-700 hover:text-red-600 hover:bg-gray-100'
               }`}
             >
               <Home className="h-4 w-4" />
@@ -67,8 +65,8 @@ export const Header = () => {
                 to="/favorites" 
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 relative ${
                   isActive('/favorites') 
-                    ? 'bg-gradient-to-r from-red-600/20 to-orange-600/20 text-red-400 border border-red-500/30' 
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                    ? 'bg-gradient-to-r from-red-600/20 to-orange-600/20 text-red-600 border border-red-500/30' 
+                    : 'text-gray-700 hover:text-red-600 hover:bg-gray-100'
                 }`}
               >
                 <Heart className={`h-4 w-4 ${favorites.length > 0 ? 'fill-current text-red-400' : ''}`} />
@@ -83,7 +81,7 @@ export const Header = () => {
               <Button
                 variant="ghost"
                 onClick={handleFavoritesClick}
-                className="flex items-center gap-2 text-gray-300 hover:text-white hover:bg-gray-800/50"
+                className="flex items-center gap-2 text-gray-700 hover:text-red-600 hover:bg-gray-100"
               >
                 <Heart className="h-4 w-4" />
                 Favorites
@@ -101,7 +99,7 @@ export const Header = () => {
                       <img 
                         src={profile.avatar_url} 
                         alt={profile.name || profile.email} 
-                        className="w-8 h-8 rounded-full border-2 border-gray-600"
+                        className="w-8 h-8 rounded-full border-2 border-gray-300"
                       />
                     ) : (
                       <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center">
@@ -109,20 +107,20 @@ export const Header = () => {
                       </div>
                     )}
                     <div className="text-left hidden sm:block">
-                      <p className="text-sm font-medium text-white">{profile?.name || 'User'}</p>
-                      <p className="text-xs text-gray-400">Premium Member</p>
+                      <p className="text-sm font-medium text-gray-900">{profile?.name || 'User'}</p>
+                      <p className="text-xs text-gray-500">Premium Member</p>
                     </div>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-gray-900 border-gray-700">
+                <DropdownMenuContent align="end" className="w-56 bg-white border-gray-200">
                   <DropdownMenuItem asChild>
                     <Link to="/profile" className="flex items-center gap-2">
                       <Settings className="h-4 w-4" />
                       Profile & Settings
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-gray-700" />
-                  <DropdownMenuItem onClick={signOut} className="flex items-center gap-2 text-red-400">
+                  <DropdownMenuSeparator className="bg-gray-200" />
+                  <DropdownMenuItem onClick={signOut} className="flex items-center gap-2 text-red-600">
                     <LogOut className="h-4 w-4" />
                     Sign Out
                   </DropdownMenuItem>
@@ -142,12 +140,12 @@ export const Header = () => {
       </header>
 
       {/* Mobile Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-lg border-t border-gray-800/50">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200">
         <div className="flex items-center justify-around py-2">
           <Link 
             to="/" 
             className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all duration-300 ${
-              isActive('/') ? 'text-red-400' : 'text-gray-400'
+              isActive('/') ? 'text-red-600' : 'text-gray-500'
             }`}
           >
             <Home className="h-5 w-5" />
@@ -158,7 +156,7 @@ export const Header = () => {
             <Link 
               to="/favorites" 
               className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all duration-300 relative ${
-                isActive('/favorites') ? 'text-red-400' : 'text-gray-400'
+                isActive('/favorites') ? 'text-red-600' : 'text-gray-500'
               }`}
             >
               <Heart className={`h-5 w-5 ${favorites.length > 0 ? 'fill-current text-red-400' : ''}`} />
@@ -173,7 +171,7 @@ export const Header = () => {
             <Button
               variant="ghost"
               onClick={handleFavoritesClick}
-              className="flex flex-col items-center gap-1 px-3 py-2 text-gray-400"
+              className="flex flex-col items-center gap-1 px-3 py-2 text-gray-500"
             >
               <Heart className="h-5 w-5" />
               <span className="text-xs">Favorites</span>
@@ -183,7 +181,7 @@ export const Header = () => {
           <Link 
             to="/profile" 
             className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all duration-300 ${
-              isActive('/profile') ? 'text-red-400' : 'text-gray-400'
+              isActive('/profile') ? 'text-red-600' : 'text-gray-500'
             }`}
           >
             <User className="h-5 w-5" />

@@ -1,279 +1,161 @@
 
 import { Product } from '@/types/Product';
 
-// Sample product data for Cape Town tech retailers only
-const sampleProducts: Product[] = [
+// Mock product data - in a real app, this would come from an API
+const mockProducts: Product[] = [
   {
     id: '1',
-    name: 'Samsung Galaxy A14 5G',
-    brand: 'Samsung',
-    price: 3999,
-    originalPrice: 4499,
-    rating: 4.5,
-    reviewCount: 234,
-    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
-    category: 'Smartphones',
-    description: 'Budget-friendly smartphone with excellent performance',
-    features: [
-      '5000mAh long-lasting battery',
-      '50MP triple camera system',
-      '6.6" Full HD+ display',
-      '128GB storage'
-    ],
-    inStock: true,
-    discount: 11,
-    badges: ['Local Store', 'Best Value'],
-    store: 'Cash Crusaders',
-    storeUrl: 'https://www.cashcrusaders.co.za',
+    name: 'iPhone 15 Pro',
+    brand: 'Apple',
+    price: 24999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300',
+    category: 'smartphones',
+    rating: 4.8,
+    reviewCount: 1250,
+    store: 'iStore',
+    storeUrl: 'https://www.istore.co.za',
     isLocal: true,
-    currency: 'ZAR'
+    description: 'Latest iPhone with Pro camera system'
   },
   {
     id: '2',
-    name: 'ASUS ROG Strix G15 Gaming Laptop',
-    brand: 'ASUS',
-    price: 24999,
+    name: 'Samsung Galaxy S24 Ultra',
+    brand: 'Samsung',
+    price: 26999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300',
+    category: 'smartphones',
     rating: 4.7,
-    reviewCount: 456,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
-    category: 'Laptops',
-    description: 'High-performance gaming laptop for serious gamers',
-    features: [
-      'AMD Ryzen 7 processor',
-      'RTX 3060 graphics card',
-      '16GB RAM, 512GB SSD',
-      '15.6" 144Hz display'
-    ],
-    inStock: true,
-    badges: ['Gaming', 'High Performance'],
-    store: 'Takealot',
-    storeUrl: 'https://www.takealot.com',
+    reviewCount: 980,
+    store: 'Incredible Connection',
+    storeUrl: 'https://www.incredible.co.za',
     isLocal: true,
-    currency: 'ZAR'
+    description: 'Premium Android flagship with S Pen'
   },
   {
     id: '3',
-    name: 'iPhone 14 Pro Max',
+    name: 'MacBook Pro 14" M3',
     brand: 'Apple',
-    price: 28999,
+    price: 45999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300',
+    category: 'laptops',
     rating: 4.9,
-    reviewCount: 1834,
-    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
-    category: 'Smartphones',
-    description: 'Latest iPhone with premium features',
-    features: [
-      'A16 Bionic chip',
-      'Pro camera system',
-      '6.7" Super Retina XDR',
-      '256GB storage'
-    ],
-    inStock: true,
-    badges: ['Premium', 'Latest'],
+    reviewCount: 750,
     store: 'iStore',
-    storeUrl: 'https://www.istores.co.za',
+    storeUrl: 'https://www.istore.co.za',
     isLocal: true,
-    currency: 'ZAR'
+    description: 'Professional laptop with M3 chip'
   },
   {
     id: '4',
-    name: 'Samsung Galaxy S23 Ultra',
-    brand: 'Samsung',
-    price: 24999,
-    rating: 4.8,
-    reviewCount: 892,
-    image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop',
-    category: 'Smartphones',
-    description: 'Premium flagship with S Pen functionality',
-    features: [
-      'S Pen included',
-      '200MP camera system',
-      '6.8" Dynamic AMOLED 2X',
-      '256GB storage'
-    ],
-    inStock: true,
-    badges: ['Flagship', 'S Pen'],
-    store: 'Vodacom',
-    storeUrl: 'https://www.vodacom.co.za',
-    isLocal: true,
-    currency: 'ZAR'
-  },
-  {
-    id: '5',
-    name: 'MacBook Air M2',
-    brand: 'Apple',
-    price: 21999,
-    rating: 4.9,
-    reviewCount: 567,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
-    category: 'Laptops',
-    description: 'Ultra-thin laptop with Apple M2 chip',
-    features: [
-      'Apple M2 chip',
-      '13.6" Liquid Retina display',
-      '256GB SSD storage',
-      'All-day battery life'
-    ],
-    inStock: true,
-    badges: ['Premium', 'Ultra-thin'],
-    store: 'iStore',
-    storeUrl: 'https://www.istores.co.za',
-    isLocal: true,
-    currency: 'ZAR'
-  },
-  {
-    id: '6',
-    name: 'Sony WH-1000XM5 Headphones',
-    brand: 'Sony',
-    price: 6999,
-    originalPrice: 7999,
-    rating: 4.8,
-    reviewCount: 342,
-    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop',
-    category: 'Headphones',
-    description: 'Premium noise-canceling headphones',
-    features: [
-      'Industry-leading noise canceling',
-      '30-hour battery life',
-      'Premium comfort',
-      'Multi-device pairing'
-    ],
-    inStock: true,
-    discount: 13,
-    badges: ['Audio', 'Noise Canceling'],
-    store: 'Takealot',
-    storeUrl: 'https://www.takealot.com',
-    isLocal: true,
-    currency: 'ZAR'
-  },
-  {
-    id: '7',
-    name: 'Dell XPS 13 Plus',
+    name: 'Dell XPS 15',
     brand: 'Dell',
-    price: 18999,
+    price: 35999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300',
+    category: 'laptops',
     rating: 4.6,
-    reviewCount: 289,
-    image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop',
-    category: 'Laptops',
-    description: 'Ultra-premium business laptop',
-    features: [
-      'Intel Core i7 processor',
-      '13.4" InfinityEdge display',
-      '16GB RAM, 512GB SSD',
-      'Sleek design'
-    ],
-    inStock: true,
-    badges: ['Business', 'Premium'],
-    store: 'MTN',
-    storeUrl: 'https://www.mtn.co.za',
-    isLocal: true,
-    currency: 'ZAR'
-  },
-  {
-    id: '8',
-    name: 'NVIDIA RTX 4060 Graphics Card',
-    brand: 'NVIDIA',
-    price: 7499,
-    rating: 4.7,
-    reviewCount: 156,
-    image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500&h=500&fit=crop',
-    category: 'PC Parts',
-    description: 'High-performance graphics card for gaming',
-    features: [
-      'DLSS 3 technology',
-      '8GB GDDR6 memory',
-      'Ray tracing support',
-      'Efficient cooling'
-    ],
-    inStock: true,
-    badges: ['Gaming', 'Ray Tracing'],
+    reviewCount: 420,
     store: 'Evetech',
     storeUrl: 'https://www.evetech.co.za',
     isLocal: true,
-    currency: 'ZAR'
+    description: 'High-performance ultrabook'
+  },
+  {
+    id: '5',
+    name: 'Sony WH-1000XM5',
+    brand: 'Sony',
+    price: 7999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300',
+    category: 'audio',
+    rating: 4.8,
+    reviewCount: 890,
+    store: 'Incredible Connection',
+    storeUrl: 'https://www.incredible.co.za',
+    isLocal: true,
+    description: 'Premium noise-cancelling headphones'
+  },
+  {
+    id: '6',
+    name: 'LG 27" 4K Monitor',
+    brand: 'LG',
+    price: 8999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=300',
+    category: 'monitors',
+    rating: 4.5,
+    reviewCount: 320,
+    store: 'Evetech',
+    storeUrl: 'https://www.evetech.co.za',
+    isLocal: true,
+    description: '4K UHD monitor for professionals'
+  },
+  {
+    id: '7',
+    name: 'NVIDIA RTX 4080',
+    brand: 'NVIDIA',
+    price: 22999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=300',
+    category: 'pc-parts',
+    rating: 4.9,
+    reviewCount: 650,
+    store: 'Evetech',
+    storeUrl: 'https://www.evetech.co.za',
+    isLocal: true,
+    description: 'High-end graphics card for gaming'
+  },
+  {
+    id: '8',
+    name: 'iPad Pro 12.9"',
+    brand: 'Apple',
+    price: 19999,
+    currency: 'ZAR',
+    image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=300',
+    category: 'tablets',
+    rating: 4.7,
+    reviewCount: 540,
+    store: 'iStore',
+    storeUrl: 'https://www.istore.co.za',
+    isLocal: true,
+    description: 'Professional tablet with M2 chip'
   }
 ];
 
-export const searchProducts = (query: string, filters?: any): Product[] => {
-  if (!query.trim()) {
-    return sampleProducts;
+export const searchProducts = (query: string, filters: any): Product[] => {
+  let results = mockProducts;
+
+  // Filter by search query
+  if (query.trim()) {
+    const searchTerm = query.toLowerCase();
+    results = results.filter(product => 
+      product.name.toLowerCase().includes(searchTerm) ||
+      product.brand.toLowerCase().includes(searchTerm) ||
+      product.category.toLowerCase().includes(searchTerm) ||
+      product.description.toLowerCase().includes(searchTerm)
+    );
   }
 
-  const lowerQuery = query.toLowerCase();
-  
-  let filteredProducts = sampleProducts.filter(product => {
-    const searchableText = [
-      product.name,
-      product.brand,
-      product.category,
-      product.description,
-      product.store,
-      ...product.features
-    ].join(' ').toLowerCase();
-
-    // Check if query contains budget/price constraints
-    const budgetMatch = query.match(/under?\s*r?(\d+)/i);
-    if (budgetMatch) {
-      const budget = parseInt(budgetMatch[1]);
-      if (product.price > budget) return false;
-    }
-
-    // Check for rating constraints
-    const ratingMatch = query.match(/(\d+\.?\d*)\+?\s*stars?/i);
-    if (ratingMatch) {
-      const minRating = parseFloat(ratingMatch[1]);
-      if (product.rating < minRating) return false;
-    }
-
-    // General text search
-    return searchableText.includes(lowerQuery) ||
-           lowerQuery.split(' ').some(term => searchableText.includes(term));
-  });
-
-  // Apply additional filters if provided
-  if (filters?.category && filters.category !== '') {
-    filteredProducts = filteredProducts.filter(p => p.category === filters.category);
+  // Apply additional filters
+  if (filters.category) {
+    results = results.filter(product => product.category === filters.category);
   }
 
-  if (filters?.storeType && filters.storeType !== 'all') {
-    if (filters.storeType === 'local') {
-      filteredProducts = filteredProducts.filter(p => p.isLocal);
-    }
+  if (filters.brand) {
+    results = results.filter(product => 
+      product.brand.toLowerCase().includes(filters.brand.toLowerCase()) ||
+      product.store.toLowerCase().includes(filters.brand.toLowerCase())
+    );
   }
 
-  // Sort by relevance (rating + review count)
-  return filteredProducts.sort((a, b) => {
-    const aScore = a.rating * Math.log(a.reviewCount + 1);
-    const bScore = b.rating * Math.log(b.reviewCount + 1);
-    return bScore - aScore;
-  });
-};
+  if (filters.storeType !== 'all') {
+    results = results.filter(product => 
+      filters.storeType === 'local' ? product.isLocal : !product.isLocal
+    );
+  }
 
-export const getProductRecommendation = (product: Product): string => {
-  const price = `R${product.price.toLocaleString()}`;
-  return `The **${product.name}** is available at **${product.store}** for **${price}**, rated **${product.rating} stars**. Click 'View' to visit the store.`;
-};
-
-export const getSearchSuggestions = (query: string): string[] => {
-  const suggestions = [
-    "budget smartphone under R5000",
-    "gaming laptop with RTX graphics",
-    "iPhone latest models Cape Town",
-    "Samsung Galaxy series phones",
-    "MacBook Air for students",
-    "gaming headset with microphone",
-    "wireless earbuds under R2000",
-    "4K monitor for home office",
-    "mechanical keyboard for gaming",
-    "graphics card RTX 4060",
-    "SSD storage 1TB",
-    "laptop under R15000"
-  ];
-
-  if (!query.trim()) return suggestions.slice(0, 6);
-  
-  return suggestions
-    .filter(suggestion => 
-      suggestion.toLowerCase().includes(query.toLowerCase())
-    )
-    .slice(0, 6);
+  return results;
 };

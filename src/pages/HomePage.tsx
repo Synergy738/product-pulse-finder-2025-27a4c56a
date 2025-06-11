@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { SearchHeader } from '@/components/SearchHeader';
 import { CategorySelector } from '@/components/CategorySelector';
@@ -100,6 +101,15 @@ const HomePage = () => {
     setShowSuggestions(false);
     setShowProductsSection(true);
     
+    // Clear the search query when performing an empty search
+    if (query === '') {
+      setProducts([]);
+      setFilteredProducts([]);
+      setShowProductsSection(false);
+      setLoading(false);
+      return;
+    }
+    
     try {
       const results = searchProducts(query, filters);
       setProducts(results);
@@ -125,9 +135,9 @@ const HomePage = () => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setShowProductsSection(true);
-    // Trigger search with category filter
+    // Don't override search query when selecting category
     if (category) {
-      const categoryQuery = searchQuery || category.toLowerCase();
+      const categoryQuery = category.toLowerCase();
       handleSearch(categoryQuery);
     } else {
       handleSearch(searchQuery);
@@ -147,10 +157,33 @@ const HomePage = () => {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
-    if (isFavorite(productId)) {
-      await removeFromFavorites(productId);
-    } else {
-      await addToFavorites(product);
+    try {
+      if (isFavorite(productId)) {
+        const success = await removeFromFavorites(productId);
+        if (!success) {
+          toast({
+            title: "Error",
+            description: "Failed to remove from favorites",
+            variant: "destructive",
+          });
+        }
+      } else {
+        const success = await addToFavorites(product);
+        if (!success) {
+          toast({
+            title: "Error", 
+            description: "Failed to add to favorites",
+            variant: "destructive",
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Toggle favorite error:', error);
+      toast({
+        title: "Error",
+        description: "Something went wrong with favorites",
+        variant: "destructive",
+      });
     }
   };
 
