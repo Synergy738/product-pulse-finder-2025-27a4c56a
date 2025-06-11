@@ -23,9 +23,7 @@ export const SearchHeader: React.FC<SearchHeaderProps> = ({
 }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      onSearch(searchQuery.trim());
-    }
+    onSearch(searchQuery.trim());
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,16 +35,15 @@ export const SearchHeader: React.FC<SearchHeaderProps> = ({
   const handleClearSearch = () => {
     setSearchQuery('');
     setShowSuggestions(false);
-    // Reset to show all products or clear results
     onSearch('');
   };
 
   return (
-    <div className="text-center mb-8">
-      <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent mb-4 animate-fade-in">
+    <div className="text-center">
+      <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 animate-fade-in">
         TechPulse
       </h1>
-      <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
+      <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
         Discover the best tech products from Cape Town stores and international retailers. 
         Compare prices, ratings, and find exactly what you need.
       </p>
@@ -61,21 +58,21 @@ export const SearchHeader: React.FC<SearchHeaderProps> = ({
               value={searchQuery}
               onChange={handleInputChange}
               onFocus={() => setShowSuggestions(searchQuery.length > 0)}
-              className="pl-12 pr-32 py-4 text-lg rounded-full border-2 border-gray-300 bg-white text-gray-900 placeholder-gray-500 focus:border-red-500 focus:bg-white transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="pl-12 pr-32 py-4 text-lg rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white placeholder-white/70 focus:border-white/40 focus:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
             />
             {searchQuery && (
               <Button
                 type="button"
                 variant="ghost"
                 onClick={handleClearSearch}
-                className="absolute right-24 p-2 text-gray-400 hover:text-gray-600"
+                className="absolute right-24 p-2 text-white/70 hover:text-white"
               >
                 <X className="h-4 w-4" />
               </Button>
             )}
             <Button 
               type="submit" 
-              className="absolute right-2 rounded-full px-6 py-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 transition-all duration-300 transform hover:scale-105"
+              className="absolute right-2 rounded-full px-6 py-2 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105 text-white font-semibold"
               disabled={loading}
             >
               {loading ? 'Searching...' : 'Search'}

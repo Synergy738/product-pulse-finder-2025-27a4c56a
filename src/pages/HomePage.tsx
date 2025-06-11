@@ -99,22 +99,15 @@ const HomePage = () => {
     setLoading(true);
     setSearchQuery(query);
     setShowSuggestions(false);
-    setShowProductsSection(true);
     
-    // Clear the search query when performing an empty search
-    if (query === '') {
-      setProducts([]);
-      setFilteredProducts([]);
-      setShowProductsSection(false);
-      setLoading(false);
-      return;
-    }
+    // If query is empty, still show products section but with all products
+    setShowProductsSection(true);
     
     try {
       const results = searchProducts(query, filters);
       setProducts(results);
       
-      if (results.length === 0) {
+      if (results.length === 0 && query.trim()) {
         toast({
           title: "No products found",
           description: "Try adjusting your search terms or filters",
@@ -135,13 +128,8 @@ const HomePage = () => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setShowProductsSection(true);
-    // Don't override search query when selecting category
-    if (category) {
-      const categoryQuery = category.toLowerCase();
-      handleSearch(categoryQuery);
-    } else {
-      handleSearch(searchQuery);
-    }
+    // Perform search with the selected category
+    handleSearch(category.toLowerCase());
   };
 
   const handleFilterChange = (newFilters: typeof filters) => {
@@ -188,55 +176,77 @@ const HomePage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <SearchHeader 
-        onSearch={handleSearch}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        showSuggestions={showSuggestions}
-        setShowSuggestions={setShowSuggestions}
-        loading={loading}
-      />
-      
-      {showSuggestions && (
-        <SearchSuggestions 
-          onSuggestionClick={handleSearch}
-          searchQuery={searchQuery}
-        />
-      )}
-
-      <CategorySelector 
-        selectedCategory={selectedCategory}
-        onCategorySelect={handleCategorySelect}
-      />
-
-      {showProductsSection && (
-        <div className="flex flex-col lg:flex-row gap-6 mt-6 animate-fade-in">
-          <div className="lg:w-1/4">
-            <FilterSidebar 
-              filters={filters}
-              onFilterChange={handleFilterChange}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-              productCount={filteredProducts.length}
-            />
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Hero/Search Section */}
+      <section className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-700 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative container mx-auto px-4 py-12">
+          <SearchHeader 
+            onSearch={handleSearch}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            showSuggestions={showSuggestions}
+            setShowSuggestions={setShowSuggestions}
+            loading={loading}
+          />
           
-          <div className="lg:w-3/4">
-            <ProductGrid 
-              products={filteredProducts}
-              loading={loading}
+          {showSuggestions && (
+            <SearchSuggestions 
+              onSuggestionClick={handleSearch}
               searchQuery={searchQuery}
-              user={user ? { 
-                id: user.id, 
-                name: user.email || '', 
-                email: user.email || '',
-                favorites: [] 
-              } : null}
-              onToggleFavorite={handleToggleFavorite}
             />
-          </div>
+          )}
         </div>
+      </section>
+
+      {/* Category Filter Section */}
+      <section className="bg-gradient-to-r from-slate-800 to-slate-700 border-b border-slate-600">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2">Discover Technology</h2>
+            <p className="text-slate-300">Choose a category to explore premium tech products</p>
+          </div>
+          <CategorySelector 
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        </div>
+      </section>
+
+      {/* Products Section */}
+      {showProductsSection && (
+        <section className="bg-gradient-to-br from-slate-900 to-purple-900 min-h-screen">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex flex-col lg:flex-row gap-6 animate-fade-in">
+              <div className="lg:w-1/4">
+                <div className="bg-gradient-to-br from-slate-800 to-slate-700 rounded-lg border border-slate-600 shadow-xl">
+                  <FilterSidebar 
+                    filters={filters}
+                    onFilterChange={handleFilterChange}
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
+                    productCount={filteredProducts.length}
+                  />
+                </div>
+              </div>
+              
+              <div className="lg:w-3/4">
+                <ProductGrid 
+                  products={filteredProducts}
+                  loading={loading}
+                  searchQuery={searchQuery}
+                  user={user ? { 
+                    id: user.id, 
+                    name: user.email || '', 
+                    email: user.email || '',
+                    favorites: [] 
+                  } : null}
+                  onToggleFavorite={handleToggleFavorite}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
       )}
     </div>
   );
